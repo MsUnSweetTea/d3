@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+   	<script src="https://d3js.org/d3.v4.min.js"></script> 
+   </head>
+   <body>
+   	
+	<svg width="250" height="250">
+	<!-- SVG needs it's own dimensions, otherwise it defaults and makes it something else -->
+      <rect x="0"   y="0" width="100" height="100" fill="red"></rect>
+      <rect x="120" y="0" width="100" height="100" fill="green"></rect>
+      <rect x="0" y="120" width="100" height="100" fill="#0000FF"></rect>
+      <rect x="120" y="120" width="100" height="100" fill="rgb(100, 50, 200)" stroke="yellow" stroke-width="10"></rect>
+      <rect x="60" y="60" width="50" height="50" fill="rgba(0, 255, 0, 0.5)" stroke="black"></rect>
+    	<!-- ***makes a black rectangle being 100 wide and 100 high
+			***the 'x' & 'y' gives it positioning. (0,0) is in the upper left hand corner
+			***fill changes the color of the image (use "none" for no color)
+			***the a in rgb stands for alpha(transparency)
+			***stroke creates a colored border & stroke-width adds the width of the border
+    	-->
+    </svg>
+
+
+     <p>Hello!</p>
+       <script>
+
+      var scale = d3.scaleLinear();
+
+      scale.domain([0, 1]);  // Data space
+      scale.range([0, 100]); // Pixel space
+
+      console.log(scale(0));   // Prints 0
+      console.log(scale(0.5)); // Prints 50
+      console.log(scale(1));   // Prints 100
+
+       </script>
+   </body>
+ </html>

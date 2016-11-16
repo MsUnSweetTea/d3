@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <script src="https://d3js.org/d3.v4.min.js"></script> 
+   </head>
+   <body>
+     <p>Hello!</p>
+
+    <script>
+        //ordinal scale
+    var scale = d3.scaleOrdinal()
+        .domain(["A", "B", "C"])
+        .range(["Apple", "Banana", "Coconut"]);
+
+      console.log(scale("A")); // Prints Apple
+      console.log(scale("B")); // Prints Banana
+      console.log(scale("C")); // Prints Coconut
+
+      var data = [1, 2, 3, 4, 5];
+    //Linear scale
+      var scale = d3.scaleLinear()
+        .domain([1, 5])   // Data space
+        .range([0, 200]); // Pixel space
+
+      var svg = d3.select("body").append("svg")
+        .attr("width",  400)
+        .attr("height", 400);
+
+      svg.selectAll("rect")
+          .data(data)
+        .enter().append("rect")
+          .attr("x", scale)
+          .attr("y", 50)
+          .attr("width",  20)
+          .attr("height", 20);
+
+          //D3.js SCALE LINEAR
+    var initialScaleData = [0, 1000, 3000, 2000, 5000, 4000, 7000, 6000, 9000, 8000, 10000];
+ 
+         var newScaledData = [];
+         
+        var linearScale = d3.scaleLinear()
+                            .domain([0,10000])
+                            .range([0,100]);
+         
+         for (var i = 0; i < initialScaleData.length; i++) {
+          newScaledData[i] = linearScale(initialScaleData[i]);
+        }
+
+        console.log(newScaledData);
+
+    </script>
+
+  </body>
+</html>

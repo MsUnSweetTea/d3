@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import ReactDOM from 'react-dom';
+import {getAllUsers} from '../actions/actions';
+import {connect} from 'react-redux';
+
 
 class App extends Component {
+
+  componentDidMount() {
+    this.props.getData()
+  }
+  
   render() {
     return (
       <div className="App">
@@ -18,4 +27,15 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    getUsers: state.handleActions
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getData: () => dispatch(getAllUsers())
+  }
+}
+connect(mapDispatchToProps)(App)
 export default App;

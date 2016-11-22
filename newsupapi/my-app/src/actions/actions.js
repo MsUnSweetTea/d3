@@ -1,6 +1,18 @@
 var fetch = require('isomorphic-fetch');
 //--------USER ACTIONS -------------------------
-export const LOG_IN_REQUEST = createAction('LOG_IN_REQUEST');
+export const GET_ALL_USERS = 'GET_ALL_USERS'
+export const getAllUsers = () => {
+  return dispatch => {
+    return fetch('https://react-sup-backend.herokuapp.com/api/v1/users', function callback(res){
+      console.log("Response: " + res)
+      dispatch(GET_USER_SUCCESS(res.json()))
+    });
+  };
+};
+
+export const getUserSuccess = createAction('GET_USER_SUCCESS'); 
+
+export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const logInRequest = (username, password) => {
   return (dispatch) => {
     const hash = new Buffer(`${username}:${password}`).toString('base64');
@@ -76,15 +88,17 @@ export const logUserOut = () => {
   }
 }
 
-export const LOG_USER_FAILURE = 'LOG_USER_FAILURE';
-export const logUserFailure() {
+export const LOG_OUT_USER_PRESENT = 'LOGOUT_USER_NOW';
+export const logoutUserPresent = (previousUser) => {
   return {
-      type: LOG_USER_FAILURE,
-      payload: 'Sorry, you\'re no longer not logged in'
+      type: LOG_USER_PRESENT,
+      payload: previousUser
   };
 }
+
+export const logUserFailure = createAction('LOG_USER_FAILURE');
 //-----------CREATING USER ACTION ----------------
-export const CREATE_USER_REQUEST = createAction('CREATE_USER_REQUEST');
+export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
 export const createUserRequest = (username, password) => {
   return (dispatch, getState) => {
     const hash = getState().hash;
@@ -122,12 +136,12 @@ export const successCreateUser = createAction('SUCCESS_CREATE_USER');
 export const failureCreateUser = createAction('FAILURE_CREATE_USER');
 
 //------------------------GET CONTACTS ACTIONS --------------------
-export const GET_CONTACTS = createAction('GET_CONTACTS');
-export const getContact = (username) => {
+export const GET_CONTACTS = 'GET_CONTACTS';
+export const getContacts = (username) => {
   return dispatch => {
     return fetch('users/' + username, function callback(res){
-      dispatch(loginInSuccess(res.json())),
-      dispatch(currentUser());
+      dispatch(logInSuccess(res.json()))
+      // dispatch(currentUser());
     });
   };
 };
@@ -135,7 +149,7 @@ export const successGetContacts = createAction('SUCCESS_GET_CONTACTS');
 export const failureGetContacts = createAction('FAILURE_GET_CONTACTS');
 
 //-------------------------------GET MESSAGES ACTIONS --------------
-export const GET_MESSAGES = createAction('GET_MESSAGES');
+export const GET_MESSAGES = 'GET_MESSAGES';
 
 export const getMessages = (currentUser) => {
   return (dispatch, getState) => {
